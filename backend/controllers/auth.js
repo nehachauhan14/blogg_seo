@@ -12,28 +12,28 @@ exports.signup = (req, res) => {
                 error: 'Email is already taken'
             })
         }
-    })
-    
-    let username = shortId.generate()
-    let profile = `${process.env.CLIENT_URL}/${username}`
 
-    let newUser = new User({
-        name,
-        email,
-        password,
-        profile,
-        username
-    })
+        let username = shortId.generate()
+        let profile = `${process.env.CLIENT_URL}/${username}`
 
-    newUser.save((err, success) => {
-        if(err) {
-            return res.status(400).json({
-                error: err
+        let newUser = new User({
+            name,
+            email,
+            password,
+            profile,
+            username
+        })
+
+        newUser.save((err, success) => {
+            if(err) {
+                return res.status(400).json({
+                    error: err
+                })
+            }
+            return res.json({
+                user: success,
+                message: 'Signup success! please signin.'
             })
-        }
-        return res.json({
-            user: success,
-            message: 'Signup success! please signin.'
         })
     })
 }
